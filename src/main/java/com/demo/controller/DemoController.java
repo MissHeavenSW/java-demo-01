@@ -19,6 +19,8 @@ public class DemoController {
 
     @RequestMapping("/getGrade")
     public Map<String,Object> getGrade(@RequestBody Request request){
+        //getGrade是没有分页的伪代码,getGrade2是分页的伪代码
+        //没有采用多个接口各个返回指定的格式,而是统一返回,写在了一个接口里
         Map<String,Object> returnMap =  demoService.getGrade2(request);
         return returnMap;
     }

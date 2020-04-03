@@ -81,4 +81,27 @@ public interface DemoDao extends JpaRepository<Score, Long> {
             "LEFT JOIN stu_score c on c.sub_id  = b.sub_id\n" +
             "GROUP BY a.tea_id,c.sub_id \n#pageable\n ",nativeQuery = true)
     Page<Map> selectAllTeacherSubGrade2(Pageable pageable);
+
+
+    /**
+     * 查询学生本人每学年每学科成绩
+     * @return
+     */
+    @Query(value = "select a.stu_id stuId, a.sub_score subScore, a.term term , a.sub_id subId \n" +
+            "from stu_score  a\n" +
+            "where a.stu_id = ?1\n" +
+            "group by a.stu_id\n" +
+            ",a.term,a.sub_id",nativeQuery = true)
+    List<Map> selectStuTermSubGrade(Integer term);
+
+    /**
+     * 查询学生本人每学年每学科成绩
+     * @return
+     */
+    @Query(value = "select a.stu_id stuId, a.sub_score subScore, a.term term , a.sub_id subId \n" +
+            "from stu_score  a\n" +
+            "where a.stu_id = ?1\n" +
+            "group by a.stu_id\n" +
+            ",a.term,a.sub_id \n#pageable\n ",nativeQuery = true)
+    Page<Map> selectStuTermSubGrade2(Integer term,Pageable pageable);
 }

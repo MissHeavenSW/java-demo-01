@@ -1,6 +1,7 @@
 package com.demo.service;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.demo.dao.DemoDao;
 import com.demo.dao.SubDao;
 import com.demo.dao.TeaDao;
@@ -8,6 +9,7 @@ import com.demo.domain.Request;
 import com.demo.domain.Score;
 import com.demo.domain.Subject;
 import com.demo.domain.Teacher;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +45,7 @@ public class DemoService {
      * @return
      */
     public Map<String, Object> getGrade(Request request) {
+        log.info("调用查询接口入参:"+ JSONObject.toJSONString(request));
         Map<String,Object> returnMap = new HashMap<>();
         //对参数进行判断
         if(!request.getPersonId().isEmpty()&&!request.getPersonId().equals("")){
@@ -103,6 +108,15 @@ public class DemoService {
             returnMap.put("teaSub2",teaSubGradeList);
         }
 
+        //学生可以查询本人每年的各学科的成绩
+        if(request.getStuId()!=null){
+            List<Map> stuTermSubGradeList = demoDao.selectStuTermSubGrade(request.getStuId());
+            if(!CollectionUtils.isEmpty(stuTermSubGradeList)){
+                returnMap.put("stuTermSub",stuTermSubGradeList);
+            }
+        }
+
+        log.info("查询接口的出参:"+JSONObject.toJSONString(returnMap));
         return returnMap;
     }
 
@@ -113,6 +127,7 @@ public class DemoService {
      * @return
      */
     public Map<String, Object> getGrade2(Request request){
+        log.info("调用分页查询接口入参:"+ JSONObject.toJSONString(request));
         Map<String,Object> returnMap = new HashMap<>();
         //对参数进行判断
         if(!request.getPersonId().isEmpty()&&!request.getPersonId().equals("")){
@@ -148,6 +163,17 @@ public class DemoService {
             returnMap.put("teaSub2",teaSubGradeList);
         }
 
+        //学生可以查询本人每年的各学科的成绩
+        if(request.getStuId()!=null){
+            Sort sort3 = Sort.by(Sort.Direction.DESC,"stu_id");
+            Pageable pageable3 = PageRequest.of(0,10,sort3); //暂时写死,可以传参数的其实
+            Page<Map> stuTermSubGradeList = demoDao.selectStuTermSubGrade2(request.getStuId(),pageable3);
+            if(!CollectionUtils.isEmpty(stuTermSubGradeList.getContent())){
+                returnMap.put("stuTermSub",stuTermSubGradeList);
+            }
+        }
+
+        log.info("分页查询接口的出参:"+JSONObject.toJSONString(returnMap));
         return returnMap;
     }
 }
