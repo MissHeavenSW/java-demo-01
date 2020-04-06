@@ -1,7 +1,9 @@
 package com.demo.test;
 
 import com.demo.DemoApplication;
-import com.demo.domain.Request;
+import com.demo.common.Header;
+import com.demo.common.RequestPageEntity;
+import com.demo.domain.TeaSubGradeForDirectorRequest;
 import com.demo.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,12 +20,15 @@ public class DemoTest extends AbstractTestNGSpringContextTests{
     private DemoService demoService;
 
     @Test
-    public void test() {
-        Request request = new Request();
+    public void test() throws Exception {
+        TeaSubGradeForDirectorRequest request = new TeaSubGradeForDirectorRequest();
         request.setPersonId("1");
-        request.setTerm("1");
-        request.setTeaId(1);
-        demoService.getGrade(request);
+       request.setPersonId("1");
+        RequestPageEntity<TeaSubGradeForDirectorRequest> requestData = new RequestPageEntity<>();
+        Header header = new Header();
+        requestData.setHeader(header);
+        requestData.setBody(null);
+        demoService.selectTeaSubGradeForDirector(requestData);
 
     }
 }
