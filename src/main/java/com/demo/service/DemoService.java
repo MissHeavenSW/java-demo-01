@@ -1,14 +1,13 @@
 package com.demo.service;
 
 
-import com.demo.common.RequestPageEntity;
 import com.demo.common.ResponsePageEntity;
 import com.demo.domain.*;
 
 public interface DemoService {
 
 
-    ResponsePageEntity selectTermSubGradeForDirector(RequestPageEntity<TermSubGradeForDirectorRequest> entity) throws Exception;
+    ResponsePageEntity findTermSubGradeForDirector(TermSubGradeForDirectorRequest entity) throws Exception;
 
 
 
@@ -17,19 +16,19 @@ public interface DemoService {
      * @param entity
      * @return
      */
-    ResponsePageEntity selectTeaSubGradeForDirector(RequestPageEntity<TeaSubGradeForDirectorRequest> entity) throws Exception;
+    ResponsePageEntity findTeaSubGradeForDirector(TeaSubGradeForDirectorRequest entity) throws Exception;
 
     /**
      * 查询教师本人每学年，学的成绩
      * @param entity
      * @return
      */
-    ResponsePageEntity selectTermSubGradeForTea(RequestPageEntity<TermSubGradeForTeaRequest> entity);
+    ResponsePageEntity findTermSubGradeForTea(TermSubGradeForTeaRequest entity);
 
     /**
      * 学生可以查询本人每学年各学科成绩
      * @param entity
      * @return
      */
-    ResponsePageEntity selectTermSubGradeForStu(RequestPageEntity<TermSubGradeForStuRequest> entity);
+    ResponsePageEntity findTermSubGradeForStu(TermSubGradeForStuRequest entity);
 }

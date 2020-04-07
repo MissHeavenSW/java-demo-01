@@ -8,9 +8,9 @@ public class TeacherSub {
 
     @Id
     @Column(name = "tea_id")
-    private int teaId ; // 教师id
+    private int tea_id ; // 教师id
 
     @Column(name = "sub_id")
-    private int subId ; // 学科id
+    private int sub_id ; // 学科id
 
 }

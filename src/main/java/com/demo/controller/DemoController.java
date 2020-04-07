@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
-public class DemoController extends BaseController{
+public class DemoController{
 
     @Autowired
     private DemoService demoService;
+
+    private static final String SUCCESS = "成功";
+    private static final String FAIL = "失败";
 
     /**
      * 教务处主任可以查看每学年每学科 平均,最高,最低成绩
@@ -28,18 +31,22 @@ public class DemoController extends BaseController{
      * @return
      */
     @ApiOperation(value="教导主任查询")
-    @RequestMapping("/getTermSubGradeForDirector")
-    public PageMessage getTermSubGradeForDirector(@RequestBody RequestPageEntity<TermSubGradeForDirectorRequest> entity){
+    @RequestMapping("/findTermSubGradeForDirector")
+    public ResponsePageEntity findTermSubGradeForDirector(@RequestBody TermSubGradeForDirectorRequest entity){
         log.info("教导主任查看每学科,学年的成绩接口入参:{}", JSONObject.toJSONString(entity));
         ResponsePageEntity responsePageEntity = new ResponsePageEntity();
         try {
-            responsePageEntity = demoService.selectTermSubGradeForDirector(entity);
+            responsePageEntity = demoService.findTermSubGradeForDirector(entity);
+            responsePageEntity.setPageIndex(entity.getPage());
+            responsePageEntity.setPageSize(entity.getPage_size());
+            responsePageEntity.setCode(SUCCESS);
+            responsePageEntity.setMsg(SUCCESS);
         }catch (Exception e){
-            responsePageEntity.setResultCode(ResponseEnum.FAIL.getCode());
-            responsePageEntity.setResultDesc(ResponseEnum.FAIL.getMessage());
+            responsePageEntity.setCode(FAIL);
+            responsePageEntity.setMsg(FAIL);
             log.error("教导主任查看每学科,学年的成绩接口业务层出现异常，异常信息为{}",e);
         }
-        return convert(entity.getHeader(), responsePageEntity);
+        return responsePageEntity;
     }
 
 
@@ -49,18 +56,22 @@ public class DemoController extends BaseController{
      * @return
      */
     @ApiOperation(value="教导主任-老师查询")
-    @RequestMapping("/getTeaSubGradeForDirector")
-    public PageMessage getTeaSubGradeForDirector(@RequestBody RequestPageEntity<TeaSubGradeForDirectorRequest> entity){
+    @RequestMapping("/findTeaSubGradeForDirector")
+    public ResponsePageEntity findTeaSubGradeForDirector(@RequestBody TeaSubGradeForDirectorRequest entity){
         log.info("教导主任查看教师-学科的成绩接口入参:{}", JSONObject.toJSONString(entity));
         ResponsePageEntity responsePageEntity = new ResponsePageEntity();
         try {
-            responsePageEntity = demoService.selectTeaSubGradeForDirector(entity);
+            responsePageEntity = demoService.findTeaSubGradeForDirector(entity);
+            responsePageEntity.setPageIndex(entity.getPage());
+            responsePageEntity.setPageSize(entity.getPage_size());
+            responsePageEntity.setCode(SUCCESS);
+            responsePageEntity.setMsg(SUCCESS);
         }catch (Exception e){
-            responsePageEntity.setResultCode(ResponseEnum.FAIL.getCode());
-            responsePageEntity.setResultDesc(ResponseEnum.FAIL.getMessage());
+            responsePageEntity.setCode(FAIL);
+            responsePageEntity.setMsg(FAIL);
             log.error("教导主任查看教师-学科的成绩接口业务层出现异常，异常信息为{}",e);
         }
-        return convert(entity.getHeader(), responsePageEntity);
+        return responsePageEntity;
     }
 
 
@@ -70,18 +81,22 @@ public class DemoController extends BaseController{
      * @return
      */
     @ApiOperation(value="教师查询")
-    @RequestMapping("/getTermSubGradeForTea")
-    public PageMessage getTermSubGradeForTea(@RequestBody RequestPageEntity<TermSubGradeForTeaRequest> entity){
+    @RequestMapping("/findTermSubGradeForTea")
+    public ResponsePageEntity findTermSubGradeForTea(@RequestBody TermSubGradeForTeaRequest entity){
         log.info("查询教师本人每学年，学的成绩接口入参:{}", JSONObject.toJSONString(entity));
         ResponsePageEntity responsePageEntity = new ResponsePageEntity();
         try {
-            responsePageEntity = demoService.selectTermSubGradeForTea(entity);
+            responsePageEntity = demoService.findTermSubGradeForTea(entity);
+            responsePageEntity.setPageIndex(entity.getPage());
+            responsePageEntity.setPageSize(entity.getPage_size());
+            responsePageEntity.setCode(SUCCESS);
+            responsePageEntity.setMsg(SUCCESS);
         }catch (Exception e){
-            responsePageEntity.setResultCode(ResponseEnum.FAIL.getCode());
-            responsePageEntity.setResultDesc(ResponseEnum.FAIL.getMessage());
+            responsePageEntity.setCode(FAIL);
+            responsePageEntity.setMsg(FAIL);
             log.error("查询教师本人每学年，学的成绩接口业务层出现异常，异常信息为{}",e);
         }
-        return convert(entity.getHeader(), responsePageEntity);
+        return responsePageEntity;
     }
 
 
@@ -91,18 +106,22 @@ public class DemoController extends BaseController{
      * @return
      */
     @ApiOperation(value="学生查询")
-    @RequestMapping("/getTermSubGradeForStu")
-    public PageMessage getTermSubGradeForStu(@RequestBody RequestPageEntity<TermSubGradeForStuRequest> entity){
+    @RequestMapping("/findTermSubGradeForStu")
+    public ResponsePageEntity findTermSubGradeForStu(@RequestBody TermSubGradeForStuRequest entity){
         log.info("学生可以查询本人每学年各学科成绩接口入参:{}", JSONObject.toJSONString(entity));
         ResponsePageEntity responsePageEntity = new ResponsePageEntity();
         try {
-            responsePageEntity = demoService.selectTermSubGradeForStu(entity);
+            responsePageEntity = demoService.findTermSubGradeForStu(entity);
+            responsePageEntity.setPageIndex(entity.getPage());
+            responsePageEntity.setPageSize(entity.getPage_size());
+            responsePageEntity.setCode(SUCCESS);
+            responsePageEntity.setMsg(SUCCESS);
         }catch (Exception e){
-            responsePageEntity.setResultCode(ResponseEnum.FAIL.getCode());
-            responsePageEntity.setResultDesc(ResponseEnum.FAIL.getMessage());
+            responsePageEntity.setCode(FAIL);
+            responsePageEntity.setMsg(FAIL);
             log.error("学生可以查询本人每学年各学科成绩接口业务层出现异常，异常信息为{}",e);
         }
-        return convert(entity.getHeader(), responsePageEntity);
+        return responsePageEntity;
     }
 
 

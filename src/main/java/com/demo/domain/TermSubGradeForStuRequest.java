@@ -3,6 +3,7 @@ package com.demo.domain;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -10,6 +11,9 @@ import java.io.Serializable;
  */
 @Data
 public class TermSubGradeForStuRequest implements Serializable {
-    @ApiModelProperty(value="学生标识",dataType="String",name="personId",example="3")
-    private String personId;//用来标识是学生的,这里采用3
+    @ApiModelProperty(value="学生id",dataType="String",name="personId",example="3")
+    @NotNull(message = "学生id不能为空")
+    private Integer stu_id;//学生id
+    private Integer page =0 ;//第几页
+    private Integer page_size =10;//每页大小
 }
