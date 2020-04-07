@@ -8,6 +8,7 @@ import com.demo.domain.TermSubGradeForDirectorRequest;
 import com.demo.domain.TermSubGradeForStuRequest;
 import com.demo.domain.TermSubGradeForTeaRequest;
 import com.demo.service.DemoService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,7 @@ public class DemoController extends BaseController{
      * @param entity
      * @return
      */
+    @ApiOperation(value="教导主任查询")
     @RequestMapping("/getTermSubGradeForDirector")
     public PageMessage getTermSubGradeForDirector(@RequestBody RequestPageEntity<TermSubGradeForDirectorRequest> entity){
         log.info("教导主任查看每学科,学年的成绩接口入参:{}", JSONObject.toJSONString(entity));
@@ -46,6 +48,7 @@ public class DemoController extends BaseController{
      * @param entity
      * @return
      */
+    @ApiOperation(value="教导主任-老师查询")
     @RequestMapping("/getTeaSubGradeForDirector")
     public PageMessage getTeaSubGradeForDirector(@RequestBody RequestPageEntity<TeaSubGradeForDirectorRequest> entity){
         log.info("教导主任查看教师-学科的成绩接口入参:{}", JSONObject.toJSONString(entity));
@@ -66,6 +69,7 @@ public class DemoController extends BaseController{
      * @param entity
      * @return
      */
+    @ApiOperation(value="教师查询")
     @RequestMapping("/getTermSubGradeForTea")
     public PageMessage getTermSubGradeForTea(@RequestBody RequestPageEntity<TermSubGradeForTeaRequest> entity){
         log.info("查询教师本人每学年，学的成绩接口入参:{}", JSONObject.toJSONString(entity));
@@ -86,6 +90,7 @@ public class DemoController extends BaseController{
      * @param entity
      * @return
      */
+    @ApiOperation(value="学生查询")
     @RequestMapping("/getTermSubGradeForStu")
     public PageMessage getTermSubGradeForStu(@RequestBody RequestPageEntity<TermSubGradeForStuRequest> entity){
         log.info("学生可以查询本人每学年各学科成绩接口入参:{}", JSONObject.toJSONString(entity));

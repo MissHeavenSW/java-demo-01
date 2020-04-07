@@ -1,5 +1,6 @@
 package com.demo.domain;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -7,5 +8,6 @@ import lombok.Data;
  */
 @Data
 public class TermSubGradeForDirectorRequest {
+    @ApiModelProperty(value="教导主任标识",dataType="String",name="personId",example="1")
     private String personId;//人物标识,用来标识是否是教导主任,这里采用1代表教导主任
 }
