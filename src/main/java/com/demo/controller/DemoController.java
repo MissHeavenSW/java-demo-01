@@ -88,14 +88,14 @@ public class DemoController extends BaseController{
      */
     @RequestMapping("/getTermSubGradeForStu")
     public PageMessage getTermSubGradeForStu(@RequestBody RequestPageEntity<TermSubGradeForStuRequest> entity){
-        log.info("查询教师本人每学年，学的成绩接口入参:{}", JSONObject.toJSONString(entity));
+        log.info("学生可以查询本人每学年各学科成绩接口入参:{}", JSONObject.toJSONString(entity));
         ResponsePageEntity responsePageEntity = new ResponsePageEntity();
         try {
             responsePageEntity = demoService.selectTermSubGradeForStu(entity);
         }catch (Exception e){
             responsePageEntity.setResultCode(ResponseEnum.FAIL.getCode());
             responsePageEntity.setResultDesc(ResponseEnum.FAIL.getMessage());
-            log.error("查询教师本人每学年，学的成绩接口业务层出现异常，异常信息为{}",e);
+            log.error("学生可以查询本人每学年各学科成绩接口业务层出现异常，异常信息为{}",e);
         }
         return convert(entity.getHeader(), responsePageEntity);
     }
