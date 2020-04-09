@@ -3,6 +3,7 @@ package com.demo.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -17,4 +18,13 @@ public class Teacher {
     @Column(name = "tea_name")
     private String tea_name ; // 教师名称
 
+    @OneToMany
+    @JoinColumn(name = "tea_id",referencedColumnName ="tea_id")
+    private List<TeacherSub> teacherSubList;
+
+
+    public Teacher(String tea_name, List<TeacherSub> teacherSubList) {
+        this.tea_name = tea_name;
+        this.teacherSubList = teacherSubList;
+    }
 }

@@ -18,4 +18,7 @@ public class Subject {
     private String sub_name ; // 学科名称
 
 
+    public Subject(String sub_name) {
+        this.sub_name = sub_name;
+    }
 }

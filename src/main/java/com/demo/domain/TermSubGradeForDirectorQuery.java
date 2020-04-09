@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
  * 教导主任查询每学年,每学科成绩的请求实体
  */
 @Data
-public class TermSubGradeForDirectorRequest {
+public class TermSubGradeForDirectorQuery {
     @ApiModelProperty(value="学年",dataType="String",name="term",example="1")
     @NotNull(message = "学年不能为空")
     private Integer term;
