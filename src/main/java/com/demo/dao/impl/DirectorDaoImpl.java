@@ -32,16 +32,16 @@ public class DirectorDaoImpl implements DirectorDao {
         Join<Score, Subject> relation = scoreRoot.join("subList", JoinType.LEFT);
         criteriaQuery.multiselect(
                 scoreRoot.get("term").as(Integer.class).alias("term"),
-                scoreRoot.get("sub_id").as(Integer.class).alias("subId"),
-                relation.get("sub_name").as(String.class).alias("subName"),
-                criteriaBuilder.avg(scoreRoot.get("sub_score").as(Double.class)),
-                criteriaBuilder.max(scoreRoot.get("sub_score").as(Double.class)),
-                criteriaBuilder.min(scoreRoot.get("sub_score").as(Double.class))
+                scoreRoot.get("subId").as(Integer.class).alias("subId"),
+                relation.get("subName").as(String.class).alias("subName"),
+                criteriaBuilder.avg(scoreRoot.get("subScore").as(Double.class)),
+                criteriaBuilder.max(scoreRoot.get("subScore").as(Double.class)),
+                criteriaBuilder.min(scoreRoot.get("subScore").as(Double.class))
         );
         Predicate condition = criteriaBuilder.equal(scoreRoot.get("term"),entity.getTerm());
         List scoreRootList = new ArrayList();
         scoreRootList.add(scoreRoot.get("term"));
-        scoreRootList.add(scoreRoot.get("sub_id"));
+        scoreRootList.add(scoreRoot.get("subId"));
         criteriaQuery.groupBy(scoreRootList);
         criteriaQuery.where(condition);
         TypedQuery<TermSubGradeForDirectorResp> typedQuery = em.createQuery(criteriaQuery);
@@ -69,17 +69,17 @@ public class DirectorDaoImpl implements DirectorDao {
         Join<Teacher, TeacherSub> relation1 = scoreRoot.join("teacherSubList", JoinType.LEFT);
         Join<TeacherSub, Score> relation2 = relation1.join("scoreList", JoinType.LEFT);
         criteriaQuery.multiselect(
-                scoreRoot.get("tea_id").as(Integer.class).alias("stuId"),
-                scoreRoot.get("tea_name").as(String.class).alias("teaName"),
-                relation1.get("sub_id").as(Integer.class).alias("subId"),
-                criteriaBuilder.avg(relation2.get("sub_score").as(Double.class)),
-                criteriaBuilder.max(relation2.get("sub_score").as(Double.class)),
-                criteriaBuilder.min(relation2.get("sub_score").as(Double.class))
+                scoreRoot.get("teaId").as(Integer.class).alias("stuId"),
+                scoreRoot.get("teaName").as(String.class).alias("teaName"),
+                relation1.get("subId").as(Integer.class).alias("subId"),
+                criteriaBuilder.avg(relation2.get("subScore").as(Double.class)),
+                criteriaBuilder.max(relation2.get("subScore").as(Double.class)),
+                criteriaBuilder.min(relation2.get("subScore").as(Double.class))
         );
-        Predicate condition = criteriaBuilder.equal(scoreRoot.get("tea_id"),entity.getTeacherId());
+        Predicate condition = criteriaBuilder.equal(scoreRoot.get("teaId"),entity.getTeacherId());
         List scoreRootList = new ArrayList();
-        scoreRootList.add(scoreRoot.get("tea_id"));
-        scoreRootList.add(relation1.get("sub_id"));
+        scoreRootList.add(scoreRoot.get("teaId"));
+        scoreRootList.add(relation1.get("subId"));
         criteriaQuery.groupBy(scoreRootList);
         criteriaQuery.where(condition);
         TypedQuery<TeaSubGradeForDirectorResp> typedQuery = em.createQuery(criteriaQuery);
@@ -108,17 +108,17 @@ public class DirectorDaoImpl implements DirectorDao {
         Join<Score, Subject> relation = scoreRoot.join("subList", JoinType.LEFT);
         criteriaQuery.multiselect(
                 scoreRoot.get("term").as(Integer.class).alias("term"),
-                scoreRoot.get("sub_id").as(Integer.class).alias("subId"),
-                relation.get("sub_name").as(String.class).alias("subName"),
-                criteriaBuilder.avg(scoreRoot.get("sub_score").as(Double.class)),
-                criteriaBuilder.max(scoreRoot.get("sub_score").as(Double.class)),
-                criteriaBuilder.min(scoreRoot.get("sub_score").as(Double.class))
+                scoreRoot.get("subId").as(Integer.class).alias("subId"),
+                relation.get("subName").as(String.class).alias("subName"),
+                criteriaBuilder.avg(scoreRoot.get("subScore").as(Double.class)),
+                criteriaBuilder.max(scoreRoot.get("subScore").as(Double.class)),
+                criteriaBuilder.min(scoreRoot.get("subScore").as(Double.class))
 
         );
         Predicate condition = criteriaBuilder.equal(scoreRoot.get("term"),entity.getTerm());
         List scoreRootList = new ArrayList();
         scoreRootList.add(scoreRoot.get("term"));
-        scoreRootList.add(scoreRoot.get("sub_id"));
+        scoreRootList.add(scoreRoot.get("subId"));
         criteriaQuery.groupBy(scoreRootList);
         criteriaQuery.where(condition);
         TypedQuery<TermSubGradeForDirectorResp> typedQuery = em.createQuery(criteriaQuery);
@@ -145,17 +145,17 @@ public class DirectorDaoImpl implements DirectorDao {
         Join<Teacher, TeacherSub> relation1 = scoreRoot.join("teacherSubList", JoinType.LEFT);
         Join<TeacherSub, Score> relation2 = relation1.join("scoreList", JoinType.LEFT);
         criteriaQuery.multiselect(
-                scoreRoot.get("tea_id").as(Integer.class).alias("stuId"),
-                scoreRoot.get("tea_name").as(String.class).alias("teaName"),
-                relation1.get("sub_id").as(Integer.class).alias("subId"),
-                criteriaBuilder.avg(relation2.get("sub_score").as(Double.class)),
-                criteriaBuilder.max(relation2.get("sub_score").as(Double.class)),
-                criteriaBuilder.min(relation2.get("sub_score").as(Double.class))
+                scoreRoot.get("teaId").as(Integer.class).alias("stuId"),
+                scoreRoot.get("teaName").as(String.class).alias("teaName"),
+                relation1.get("subId").as(Integer.class).alias("subId"),
+                criteriaBuilder.avg(relation2.get("subScore").as(Double.class)),
+                criteriaBuilder.max(relation2.get("subScore").as(Double.class)),
+                criteriaBuilder.min(relation2.get("subScore").as(Double.class))
         );
-        Predicate condition = criteriaBuilder.equal(scoreRoot.get("tea_id"),entity.getTeacherId());
+        Predicate condition = criteriaBuilder.equal(scoreRoot.get("teaId"),entity.getTeacherId());
         List scoreRootList = new ArrayList();
-        scoreRootList.add(scoreRoot.get("tea_id"));
-        scoreRootList.add(relation1.get("sub_id"));
+        scoreRootList.add(scoreRoot.get("teaId"));
+        scoreRootList.add(relation1.get("subId"));
         criteriaQuery.groupBy(scoreRootList);
         criteriaQuery.where(condition);
         TypedQuery<TeaSubGradeForDirectorResp> typedQuery = em.createQuery(criteriaQuery);

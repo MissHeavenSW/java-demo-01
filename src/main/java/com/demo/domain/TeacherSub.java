@@ -11,19 +11,11 @@ import java.util.List;
 public class TeacherSub {
 
     @Id
-    @Column(name = "tea_id")
-    private int tea_id ; // 教师id
-
-    @Column(name = "sub_id")
-    private int sub_id ; // 学科id
+    private int teaId ; // 教师id
+    private int subId ; // 学科id
 
     @OneToMany
-    @JoinColumn(name = "sub_id",referencedColumnName ="sub_id")
+    @JoinColumn(name = "subId",referencedColumnName ="subId")
     private List<Score> scoreList;
 
-    public TeacherSub(int tea_id, int sub_id, List<Score> scoreList) {
-        this.tea_id = tea_id;
-        this.sub_id = sub_id;
-        this.scoreList = scoreList;
-    }
 }

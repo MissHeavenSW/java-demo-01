@@ -3,7 +3,6 @@ package com.demo.service.impl;
 import com.demo.dao.DirectorDao;
 import com.demo.domain.*;
 import com.demo.service.DirectorService;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

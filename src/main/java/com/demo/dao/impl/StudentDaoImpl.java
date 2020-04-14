@@ -35,17 +35,17 @@ public class StudentDaoImpl implements StudentDao {
         CriteriaQuery<TermSubGradeForStuResp> criteriaQuery = criteriaBuilder.createQuery(TermSubGradeForStuResp.class);
         Root<Score> scoreRoot = criteriaQuery.from(Score.class);
         criteriaQuery.multiselect(
-                scoreRoot.get("stu_id").as(Integer.class).alias("stuId"),
+                scoreRoot.get("stuId").as(Integer.class).alias("stuId"),
                 scoreRoot.get("sub_score").as(Double.class).alias("subScore"),
                 scoreRoot.get("term").as(Integer.class).alias("term"),
-                scoreRoot.get("sub_id").as(Integer.class).alias("subId")
+                scoreRoot.get("subId").as(Integer.class).alias("subId")
 
         );
-        Predicate condition = criteriaBuilder.equal(scoreRoot.get("stu_id"),entity.getStuId());
+        Predicate condition = criteriaBuilder.equal(scoreRoot.get("stuId"),entity.getStuId());
         List scoreRootList = new ArrayList();
-        scoreRootList.add(scoreRoot.get("stu_id"));
+        scoreRootList.add(scoreRoot.get("stuId"));
         scoreRootList.add(scoreRoot.get("term"));
-        scoreRootList.add(scoreRoot.get("sub_id"));
+        scoreRootList.add(scoreRoot.get("subId"));
         criteriaQuery.groupBy(scoreRootList);
         criteriaQuery.where(condition);
         TypedQuery<TermSubGradeForStuResp> typedQuery = em.createQuery(criteriaQuery);
@@ -71,17 +71,17 @@ public class StudentDaoImpl implements StudentDao {
         CriteriaQuery<TermSubGradeForStuResp> criteriaQuery = criteriaBuilder.createQuery(TermSubGradeForStuResp.class);
         Root<Score> scoreRoot = criteriaQuery.from(Score.class);
         criteriaQuery.multiselect(
-                scoreRoot.get("stu_id").as(Integer.class).alias("stuId"),
-                scoreRoot.get("sub_score").as(Double.class).alias("subScore"),
+                scoreRoot.get("stuId").as(Integer.class).alias("stuId"),
+                scoreRoot.get("subScore").as(Double.class).alias("subScore"),
                 scoreRoot.get("term").as(Integer.class).alias("term"),
-                scoreRoot.get("sub_id").as(Integer.class).alias("subId")
+                scoreRoot.get("subId").as(Integer.class).alias("subId")
 
         );
-        Predicate condition = criteriaBuilder.equal(scoreRoot.get("stu_id"),entity.getStuId());
+        Predicate condition = criteriaBuilder.equal(scoreRoot.get("stuId"),entity.getStuId());
         List scoreRootList = new ArrayList();
-        scoreRootList.add(scoreRoot.get("stu_id"));
+        scoreRootList.add(scoreRoot.get("stuId"));
         scoreRootList.add(scoreRoot.get("term"));
-        scoreRootList.add(scoreRoot.get("sub_id"));
+        scoreRootList.add(scoreRoot.get("subId"));
         criteriaQuery.groupBy(scoreRootList);
         criteriaQuery.where(condition);
         TypedQuery<TermSubGradeForStuResp> typedQuery = em.createQuery(criteriaQuery);

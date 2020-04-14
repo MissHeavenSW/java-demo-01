@@ -36,19 +36,19 @@ public class TeacherDaoImpl implements TeacherDao {
         Root<TeacherSub> scoreRoot = criteriaQuery.from(TeacherSub.class);
         Join<TeacherSub, Score> relation = scoreRoot.join("scoreList", JoinType.LEFT);
         criteriaQuery.multiselect(
-                scoreRoot.get("tea_id").as(Integer.class).alias("stuId"),
-                scoreRoot.get("sub_id").as(Integer.class).alias("subId"),
+                scoreRoot.get("teaId").as(Integer.class).alias("stuId"),
+                scoreRoot.get("subId").as(Integer.class).alias("subId"),
                 relation.get("term").as(Integer.class).alias("term"),
-                criteriaBuilder.avg(relation.get("sub_score").as(Double.class)),
-                criteriaBuilder.max(relation.get("sub_score").as(Double.class)),
-                criteriaBuilder.min(relation.get("sub_score").as(Double.class))
+                criteriaBuilder.avg(relation.get("subScore").as(Double.class)),
+                criteriaBuilder.max(relation.get("subScore").as(Double.class)),
+                criteriaBuilder.min(relation.get("subScore").as(Double.class))
 
         );
-        Predicate condition = criteriaBuilder.equal(scoreRoot.get("tea_id"),entity.getTeacherId());
+        Predicate condition = criteriaBuilder.equal(scoreRoot.get("teaId"),entity.getTeacherId());
         List scoreRootList = new ArrayList();
-        scoreRootList.add(scoreRoot.get("tea_id"));
+        scoreRootList.add(scoreRoot.get("teaId"));
         scoreRootList.add(relation.get("term"));
-        scoreRootList.add(scoreRoot.get("sub_id"));
+        scoreRootList.add(scoreRoot.get("subId"));
         criteriaQuery.groupBy(scoreRootList);
         criteriaQuery.where(condition);
         TypedQuery<TermSubGradeForTeaResp> typedQuery = em.createQuery(criteriaQuery);
@@ -74,19 +74,19 @@ public class TeacherDaoImpl implements TeacherDao {
         Root<TeacherSub> scoreRoot = criteriaQuery.from(TeacherSub.class);
         Join<TeacherSub, Score> relation = scoreRoot.join("scoreList", JoinType.LEFT);
         criteriaQuery.multiselect(
-                scoreRoot.get("tea_id").as(Integer.class).alias("stuId"),
-                scoreRoot.get("sub_id").as(Integer.class).alias("subId"),
+                scoreRoot.get("teaId").as(Integer.class).alias("stuId"),
+                scoreRoot.get("subId").as(Integer.class).alias("subId"),
                 relation.get("term").as(Integer.class).alias("term"),
-                criteriaBuilder.avg(relation.get("sub_score").as(Double.class)),
-                criteriaBuilder.max(relation.get("sub_score").as(Double.class)),
-                criteriaBuilder.min(relation.get("sub_score").as(Double.class))
+                criteriaBuilder.avg(relation.get("subScore").as(Double.class)),
+                criteriaBuilder.max(relation.get("subScore").as(Double.class)),
+                criteriaBuilder.min(relation.get("subScore").as(Double.class))
 
         );
-        Predicate condition = criteriaBuilder.equal(scoreRoot.get("tea_id"),entity.getTeacherId());
+        Predicate condition = criteriaBuilder.equal(scoreRoot.get("teaId"),entity.getTeacherId());
         List scoreRootList = new ArrayList();
-        scoreRootList.add(scoreRoot.get("tea_id"));
+        scoreRootList.add(scoreRoot.get("teaId"));
         scoreRootList.add(relation.get("term"));
-        scoreRootList.add(scoreRoot.get("sub_id"));
+        scoreRootList.add(scoreRoot.get("subId"));
         criteriaQuery.groupBy(scoreRootList);
         criteriaQuery.where(condition);
         TypedQuery<TermSubGradeForTeaResp> typedQuery = em.createQuery(criteriaQuery);
