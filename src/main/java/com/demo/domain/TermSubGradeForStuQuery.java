@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class TermSubGradeForStuQuery implements Serializable {
     @ApiModelProperty(value="学生id",dataType="String",name="personId",example="3")
     @NotNull(message = "学生id不能为空")
-    private Integer stu_id;//学生id
+    private Integer stuId;//学生id
     private Integer page =0 ;//第几页
-    private Integer page_size =10;//每页大小
+    private Integer pageSize =10;//每页大小
 }

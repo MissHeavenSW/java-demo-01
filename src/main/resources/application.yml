@@ -1,6 +1,8 @@
 mybatis:
   mapper-locations: classpath*:/mybatis/*/*Mapper.xml
 spring:
+  #main:
+    #allow-bean-definition-overriding: true
   datasource:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
     driver-class-name: com.mysql.jdbc.Driver
@@ -28,3 +30,12 @@ spring:
     show-sql: true
 swagger:
   enabled: true
+logging:
+  config: classpath:logback-spring.xml
+provider:
+  document:
+    name: DEMO
+    path: csp.nhsoft.cn/demo
+    version: 1.0
+    target: D:/springFox/demo/demo.json
+

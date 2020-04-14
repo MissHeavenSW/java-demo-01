@@ -13,7 +13,6 @@ public class TermSubGradeForDirectorQuery {
     @ApiModelProperty(value="学年",dataType="String",name="term",example="1")
     @NotNull(message = "学年不能为空")
     private Integer term;
-
     private Integer page = 0 ;//第几页
-    private Integer page_size = 10;//每页大小
+    private Integer pageSize = 10;//每页大小
 }

@@ -1,22 +1,24 @@
-package com.demo.dao;
-import com.demo.domain.TermSubGradeForStuQuery;
-import com.demo.domain.TermSubGradeForStuResp;
-import org.springframework.stereotype.Repository;
+package com.demo.service;
+
+import com.demo.domain.*;
 
 import java.util.List;
 
-public interface StudentDao  {
+public interface StudentService {
+
+
 
 
     /**
-     * 学生查询成绩
+     * 学生可以查询本人每学年各学科成绩
      * @param entity
      * @return
      */
     List<TermSubGradeForStuResp> findTermSubGradeForStu(TermSubGradeForStuQuery entity);
 
+
     /**
-     * 学生查询成绩数量
+     * 学生可以查看的成绩 数量
      * @param entity
      * @return
      */

@@ -1,58 +1,50 @@
 package com.demo.controller;
 
-
-import com.alibaba.fastjson.JSONObject;
-import com.demo.common.*;
 import com.demo.domain.*;
-import com.demo.service.DemoService;
+import com.demo.service.DirectorService;
+import com.demo.service.StudentService;
+import com.demo.service.TeacherService;
+import com.demo.util.CommonPage;
+import com.nhsoft.provider.common.Response;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
-@Slf4j
+@Api(tags = "成绩查询")
 public class DemoController{
 
     @Autowired
-    private DemoService demoService;
+    private DirectorService directorService;
 
-    private static final String SUCCESS = "成功";
-    private static final String SUCCESS_CODE = "0";
-    private static final String FAIL = "失败";
-    private static final String FAIL_CODE = "失败";
+    @Autowired
+    private TeacherService teacherService;
+
+    @Autowired
+    private StudentService studentService;
 
     /**
      * 教务处主任可以查看每学年每学科 平均,最高,最低成绩
      * @param entity
      * @return
      */
-    @Transactional
     @ApiOperation(value="教导主任查询")
-    @RequestMapping("/nhsoft.demo.director.findTermSubGradeForDirector")
-    public ResponsePageEntity findTermSubGradeForDirector(@RequestBody TermSubGradeForDirectorQuery entity){
-        ResponsePageEntity responsePageEntity = new ResponsePageEntity();
-        try {
-            List<TermSubGradeForDirectorResp> returnList = demoService.findTermSubGradeForDirector(entity);
-            Integer returnCount = demoService.sumTermSubGradeForDirector(entity);
-            responsePageEntity.setList(returnList);
-            responsePageEntity.setTotalCount(returnCount);
-            responsePageEntity.setPageIndex(entity.getPage());
-            responsePageEntity.setPageSize(entity.getPage_size());
-            responsePageEntity.setCode(SUCCESS_CODE);
-            responsePageEntity.setMsg(SUCCESS);
-        }catch (Exception e){
-            responsePageEntity.setCode(FAIL_CODE);
-            responsePageEntity.setMsg(FAIL);
-            log.error("教导主任查看每学科,学年的成绩接口业务层出现异常，入参为{}异常信息为{}",JSONObject.toJSONString(entity),e);
-
+    @RequestMapping("/nhsoft.demo.termSubGradeForDirector.find")
+    public Response findTermSubGradeForDirector(@RequestBody TermSubGradeForDirectorQuery entity){
+        CommonPage<TermSubGradeForDirectorResp> page = new CommonPage<>();
+        List<TermSubGradeForDirectorResp> returnList = directorService.findTermSubGradeForDirector(entity);
+        Integer returnCount = directorService.sumTermSubGradeForDirector(entity);
+        if (!CollectionUtils.isEmpty(returnList)&&returnCount!=null) {
+             page = CommonPage.restPage(returnList, entity.getPage(), entity.getPageSize(), returnCount);
         }
-        return responsePageEntity;
+        return Response.data(page);
+
     }
 
 
@@ -61,26 +53,16 @@ public class DemoController{
      * @param entity
      * @return
      */
-    @Transactional
     @ApiOperation(value="教导主任-老师查询")
-    @RequestMapping("/nhsoft.demo.director.findTeaSubGradeForDirector")
-    public ResponsePageEntity findTeaSubGradeForDirector(@RequestBody TeaSubGradeForDirectorQuery entity){
-        ResponsePageEntity responsePageEntity = new ResponsePageEntity();
-        try {
-            List<TeaSubGradeForDirectorResp> returnList = demoService.findTeaSubGradeForDirector(entity);
-            Integer returnCount = demoService.sumTeaSubGradeForDirector(entity);
-            responsePageEntity.setList(returnList);
-            responsePageEntity.setTotalCount(returnCount);
-            responsePageEntity.setPageIndex(entity.getPage());
-            responsePageEntity.setPageSize(entity.getPage_size());
-            responsePageEntity.setCode(SUCCESS_CODE);
-            responsePageEntity.setMsg(SUCCESS);
-        }catch (Exception e){
-            responsePageEntity.setCode(FAIL_CODE);
-            responsePageEntity.setMsg(FAIL);
-            log.error("教导主任查看教师-学科的成绩接口业务层出现异常，入参为{}异常信息为{}",JSONObject.toJSONString(entity),e);
+    @RequestMapping("/nhsoft.demo.teaSubGradeForDirector.find")
+    public Response findTeaSubGradeForDirector(@RequestBody TeaSubGradeForDirectorQuery entity){
+        CommonPage<TeaSubGradeForDirectorResp> page = new CommonPage<>();
+        List<TeaSubGradeForDirectorResp> returnList = directorService.findTeaSubGradeForDirector(entity);
+        Integer returnCount = directorService.sumTeaSubGradeForDirector(entity);
+        if (!CollectionUtils.isEmpty(returnList)&&returnCount!=null) {
+            page = CommonPage.restPage(returnList, entity.getPage(), entity.getPageSize(), returnCount);
         }
-        return responsePageEntity;
+        return Response.data(page);
     }
 
 
@@ -89,26 +71,16 @@ public class DemoController{
      * @param entity
      * @return
      */
-    @Transactional
     @ApiOperation(value="教师查询")
-    @RequestMapping("/nhsoft.demo.teacher.findTermSubGradeForTea")
-    public ResponsePageEntity findTermSubGradeForTea(@RequestBody TermSubGradeForTeaQuery entity){
-        ResponsePageEntity responsePageEntity = new ResponsePageEntity();
-        try {
-            List<TermSubGradeForTeaResp> returnList  = demoService.findTermSubGradeForTea(entity);
-            Integer returnCount = demoService.sumTermSubGradeForTea(entity);
-            responsePageEntity.setList(returnList);
-            responsePageEntity.setTotalCount(returnCount);
-            responsePageEntity.setPageIndex(entity.getPage());
-            responsePageEntity.setPageSize(entity.getPage_size());
-            responsePageEntity.setCode(SUCCESS_CODE);
-            responsePageEntity.setMsg(SUCCESS);
-        }catch (Exception e){
-            responsePageEntity.setCode(FAIL_CODE);
-            responsePageEntity.setMsg(FAIL);
-            log.error("查询教师本人每学年，学的成绩接口业务层出现异常，入参为{}异常信息为{}",JSONObject.toJSONString(entity),e);
+    @RequestMapping("/nhsoft.demo.termSubGradeForTea.find")
+    public Response findTermSubGradeForTea(@RequestBody TermSubGradeForTeaQuery entity){
+        CommonPage<TermSubGradeForTeaResp> page = new CommonPage<>();
+        List<TermSubGradeForTeaResp> returnList = teacherService.findTermSubGradeForTea(entity);
+        Integer returnCount = teacherService.sumTermSubGradeForTea(entity);
+        if (!CollectionUtils.isEmpty(returnList)&&returnCount!=null) {
+            page = CommonPage.restPage(returnList, entity.getPage(), entity.getPageSize(), returnCount);
         }
-        return responsePageEntity;
+        return Response.data(page);
     }
 
 
@@ -117,27 +89,16 @@ public class DemoController{
      * @param entity
      * @return
      */
-    @Transactional
     @ApiOperation(value="学生查询")
-    @RequestMapping("/nhsoft.demo.student.findTermSubGradeForStu")
-    public ResponsePageEntity findTermSubGradeForStu(@RequestBody TermSubGradeForStuQuery entity){
-        ResponsePageEntity responsePageEntity = new ResponsePageEntity();
-        try {
-            List<TermSubGradeForStuResp> returnList  = demoService.findTermSubGradeForStu(entity);
-            Integer returnCount = demoService.sumTermSubGradeForStu(entity);
-            responsePageEntity.setTotalCount(returnCount);
-            responsePageEntity.setList(returnList);
-            responsePageEntity.setPageIndex(entity.getPage());
-            responsePageEntity.setPageSize(entity.getPage_size());
-            responsePageEntity.setCode(SUCCESS_CODE);
-            responsePageEntity.setMsg(SUCCESS);
-        }catch (Exception e){
-            responsePageEntity.setCode(FAIL_CODE);
-            responsePageEntity.setMsg(FAIL);
-            log.error("学生可以查询本人每学年各学科成绩接口业务层出现异常，入参为{}异常信息为{}",JSONObject.toJSONString(entity),e);
+    @RequestMapping("/nhsoft.demo.TermSubGradeForStu.find")
+    public Response findTermSubGradeForStu(@RequestBody TermSubGradeForStuQuery entity){
+        CommonPage<TermSubGradeForStuResp> page = new CommonPage<>();
+        List<TermSubGradeForStuResp> returnList = studentService.findTermSubGradeForStu(entity);
+        Integer returnCount = studentService.sumTermSubGradeForStu(entity);
+        if (!CollectionUtils.isEmpty(returnList)&&returnCount!=null) {
+            page = CommonPage.restPage(returnList, entity.getPage(), entity.getPageSize(), returnCount);
         }
-        return responsePageEntity;
+        return Response.data(page);
     }
-
 
 }

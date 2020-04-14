@@ -12,8 +12,8 @@ import javax.validation.constraints.NotNull;
 public class TermSubGradeForTeaQuery {
     @ApiModelProperty(value="教师id",dataType="String",name="personId",example="2")
     @NotNull(message = "教师id不能为空")
-    private Integer teacher_id;//教师id
+    private Integer teacherId;//教师id
 
     private Integer page =0;//第几页
-    private Integer page_size=10;//每页大小
+    private Integer pageSize=10;//每页大小
 }
