@@ -28,7 +28,7 @@ public class StudentDaoImpl implements StudentDao {
      * @param entity
      * @return
      */
-    public List<TermSubGradeForStuResp> findTermSubGradeForStu(TermSubGradeForStuQuery entity){
+    public List<TermSubGradeForStuResp> findTermSubGradeForStu(TermSubGradeForStuQuery query){
         List<TermSubGradeForStuResp> returnList = new ArrayList<>();
         //使用criteria写法
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -41,7 +41,7 @@ public class StudentDaoImpl implements StudentDao {
                 scoreRoot.get("subId").as(Integer.class).alias("subId")
 
         );
-        Predicate condition = criteriaBuilder.equal(scoreRoot.get("stuId"),entity.getStuId());
+        Predicate condition = criteriaBuilder.equal(scoreRoot.get("stuId"),query.getStuId());
         List scoreRootList = new ArrayList();
         scoreRootList.add(scoreRoot.get("stuId"));
         scoreRootList.add(scoreRoot.get("term"));
@@ -49,8 +49,8 @@ public class StudentDaoImpl implements StudentDao {
         criteriaQuery.groupBy(scoreRootList);
         criteriaQuery.where(condition);
         TypedQuery<TermSubGradeForStuResp> typedQuery = em.createQuery(criteriaQuery);
-        typedQuery.setFirstResult(entity.getPage());
-        typedQuery.setMaxResults(entity.getPageSize());
+        typedQuery.setFirstResult(query.getPage());
+        typedQuery.setMaxResults(query.getPageSize());
         List<TermSubGradeForStuResp> result = typedQuery.getResultList();
         if(CollectionUtils.isEmpty(result)){
             return returnList;
@@ -65,7 +65,7 @@ public class StudentDaoImpl implements StudentDao {
      * @return
      */
     @Override
-    public Integer sumTermSubGradeForStu(TermSubGradeForStuQuery entity){
+    public Integer sumTermSubGradeForStu(TermSubGradeForStuQuery query){
         List<TermSubGradeForStuResp> returnList = new ArrayList<>();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<TermSubGradeForStuResp> criteriaQuery = criteriaBuilder.createQuery(TermSubGradeForStuResp.class);
@@ -77,7 +77,7 @@ public class StudentDaoImpl implements StudentDao {
                 scoreRoot.get("subId").as(Integer.class).alias("subId")
 
         );
-        Predicate condition = criteriaBuilder.equal(scoreRoot.get("stuId"),entity.getStuId());
+        Predicate condition = criteriaBuilder.equal(scoreRoot.get("stuId"),query.getStuId());
         List scoreRootList = new ArrayList();
         scoreRootList.add(scoreRoot.get("stuId"));
         scoreRootList.add(scoreRoot.get("term"));

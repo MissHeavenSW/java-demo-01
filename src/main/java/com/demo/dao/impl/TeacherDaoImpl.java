@@ -26,10 +26,10 @@ public class TeacherDaoImpl implements TeacherDao {
 
     /**
      * 查询教师本人每学年，学的成绩
-     * @param entity
+     * @param query
      * @return
      */
-    public List<TermSubGradeForTeaResp> findTermSubGradeForTea(TermSubGradeForTeaQuery entity){
+    public List<TermSubGradeForTeaResp> findTermSubGradeForTea(TermSubGradeForTeaQuery query){
         List<TermSubGradeForTeaResp> returnList = new ArrayList<>();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<TermSubGradeForTeaResp> criteriaQuery = criteriaBuilder.createQuery(TermSubGradeForTeaResp.class);
@@ -44,7 +44,7 @@ public class TeacherDaoImpl implements TeacherDao {
                 criteriaBuilder.min(relation.get("subScore").as(Double.class))
 
         );
-        Predicate condition = criteriaBuilder.equal(scoreRoot.get("teaId"),entity.getTeacherId());
+        Predicate condition = criteriaBuilder.equal(scoreRoot.get("teaId"),query.getTeacherId());
         List scoreRootList = new ArrayList();
         scoreRootList.add(scoreRoot.get("teaId"));
         scoreRootList.add(relation.get("term"));
@@ -52,8 +52,8 @@ public class TeacherDaoImpl implements TeacherDao {
         criteriaQuery.groupBy(scoreRootList);
         criteriaQuery.where(condition);
         TypedQuery<TermSubGradeForTeaResp> typedQuery = em.createQuery(criteriaQuery);
-        typedQuery.setFirstResult(entity.getPage());
-        typedQuery.setMaxResults(entity.getPageSize());
+        typedQuery.setFirstResult(query.getPage());
+        typedQuery.setMaxResults(query.getPageSize());
         List<TermSubGradeForTeaResp> result = typedQuery.getResultList();
         if(CollectionUtils.isEmpty(result)){
             return returnList;
@@ -63,11 +63,11 @@ public class TeacherDaoImpl implements TeacherDao {
 
     /**
      * 查询教师本人每学年，学的成绩数量
-     * @param entity
+     * @param query
      * @return
      */
     @Override
-    public Integer sumTermSubGradeForTea(TermSubGradeForTeaQuery entity) {
+    public Integer sumTermSubGradeForTea(TermSubGradeForTeaQuery query) {
         List<TermSubGradeForTeaResp> returnList = new ArrayList<>();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<TermSubGradeForTeaResp> criteriaQuery = criteriaBuilder.createQuery(TermSubGradeForTeaResp.class);
@@ -82,7 +82,7 @@ public class TeacherDaoImpl implements TeacherDao {
                 criteriaBuilder.min(relation.get("subScore").as(Double.class))
 
         );
-        Predicate condition = criteriaBuilder.equal(scoreRoot.get("teaId"),entity.getTeacherId());
+        Predicate condition = criteriaBuilder.equal(scoreRoot.get("teaId"),query.getTeacherId());
         List scoreRootList = new ArrayList();
         scoreRootList.add(scoreRoot.get("teaId"));
         scoreRootList.add(relation.get("term"));

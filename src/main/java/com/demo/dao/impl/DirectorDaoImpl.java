@@ -21,10 +21,10 @@ public class DirectorDaoImpl implements DirectorDao {
 
     /**
      * 教导主任查询每学年,每学科成绩
-     * @param entity
+     * @param query
      * @return
      */
-    public List<TermSubGradeForDirectorResp> findTermSubGradeForDirector(TermSubGradeForDirectorQuery entity) {
+    public List<TermSubGradeForDirectorResp> findTermSubGradeForDirector(TermSubGradeForDirectorQuery query) {
         List<TermSubGradeForDirectorResp> returnList = new ArrayList<>();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<TermSubGradeForDirectorResp> criteriaQuery = criteriaBuilder.createQuery(TermSubGradeForDirectorResp.class);
@@ -38,15 +38,15 @@ public class DirectorDaoImpl implements DirectorDao {
                 criteriaBuilder.max(scoreRoot.get("subScore").as(Double.class)),
                 criteriaBuilder.min(scoreRoot.get("subScore").as(Double.class))
         );
-        Predicate condition = criteriaBuilder.equal(scoreRoot.get("term"),entity.getTerm());
+        Predicate condition = criteriaBuilder.equal(scoreRoot.get("term"),query.getTerm());
         List scoreRootList = new ArrayList();
         scoreRootList.add(scoreRoot.get("term"));
         scoreRootList.add(scoreRoot.get("subId"));
         criteriaQuery.groupBy(scoreRootList);
         criteriaQuery.where(condition);
         TypedQuery<TermSubGradeForDirectorResp> typedQuery = em.createQuery(criteriaQuery);
-        typedQuery.setFirstResult(entity.getPage());
-        typedQuery.setMaxResults(entity.getPageSize());
+        typedQuery.setFirstResult(query.getPage());
+        typedQuery.setMaxResults(query.getPageSize());
         List<TermSubGradeForDirectorResp> result = typedQuery.getResultList();
         if(CollectionUtils.isEmpty(result)){
             return returnList;
@@ -58,10 +58,10 @@ public class DirectorDaoImpl implements DirectorDao {
 
     /**
      * 教务处主任可以查看教师-学科平均成绩，最高分，最低分
-     * @param entity
+     * @param query
      * @return
      */
-    public List<TeaSubGradeForDirectorResp> findTeaSubGradeForDirector(TeaSubGradeForDirectorQuery entity){
+    public List<TeaSubGradeForDirectorResp> findTeaSubGradeForDirector(TeaSubGradeForDirectorQuery query){
         List<TeaSubGradeForDirectorResp> returnList = new ArrayList<>();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<TeaSubGradeForDirectorResp> criteriaQuery = criteriaBuilder.createQuery(TeaSubGradeForDirectorResp.class);
@@ -76,15 +76,15 @@ public class DirectorDaoImpl implements DirectorDao {
                 criteriaBuilder.max(relation2.get("subScore").as(Double.class)),
                 criteriaBuilder.min(relation2.get("subScore").as(Double.class))
         );
-        Predicate condition = criteriaBuilder.equal(scoreRoot.get("teaId"),entity.getTeacherId());
+        Predicate condition = criteriaBuilder.equal(scoreRoot.get("teaId"),query.getTeacherId());
         List scoreRootList = new ArrayList();
         scoreRootList.add(scoreRoot.get("teaId"));
         scoreRootList.add(relation1.get("subId"));
         criteriaQuery.groupBy(scoreRootList);
         criteriaQuery.where(condition);
         TypedQuery<TeaSubGradeForDirectorResp> typedQuery = em.createQuery(criteriaQuery);
-        typedQuery.setFirstResult(entity.getPage());
-        typedQuery.setMaxResults(entity.getPageSize());
+        typedQuery.setFirstResult(query.getPage());
+        typedQuery.setMaxResults(query.getPageSize());
         List<TeaSubGradeForDirectorResp> result = typedQuery.getResultList();
         if(CollectionUtils.isEmpty(result)){
             return returnList;
@@ -95,12 +95,12 @@ public class DirectorDaoImpl implements DirectorDao {
 
     /**
      * 教导主任查看每学科,学年的成绩数量
-     * @param entity
+     * @param query
      * @return
      * @throws Exception
      */
     @Override
-    public Integer sumTermSubGradeForDirector(TermSubGradeForDirectorQuery entity) {
+    public Integer sumTermSubGradeForDirector(TermSubGradeForDirectorQuery query) {
         List<TermSubGradeForDirectorResp> returnList = new ArrayList<>();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<TermSubGradeForDirectorResp> criteriaQuery = criteriaBuilder.createQuery(TermSubGradeForDirectorResp.class);
@@ -115,7 +115,7 @@ public class DirectorDaoImpl implements DirectorDao {
                 criteriaBuilder.min(scoreRoot.get("subScore").as(Double.class))
 
         );
-        Predicate condition = criteriaBuilder.equal(scoreRoot.get("term"),entity.getTerm());
+        Predicate condition = criteriaBuilder.equal(scoreRoot.get("term"),query.getTerm());
         List scoreRootList = new ArrayList();
         scoreRootList.add(scoreRoot.get("term"));
         scoreRootList.add(scoreRoot.get("subId"));
@@ -132,12 +132,12 @@ public class DirectorDaoImpl implements DirectorDao {
 
     /**
      * 教导主任查看每学科,学年的成绩数量
-     * @param entity
+     * @param query
      * @return
      * @throws Exception
      */
     @Override
-    public Integer sumTeaSubGradeForDirector(TeaSubGradeForDirectorQuery entity){
+    public Integer sumTeaSubGradeForDirector(TeaSubGradeForDirectorQuery query){
         List<TeaSubGradeForDirectorResp> returnList = new ArrayList<>();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<TeaSubGradeForDirectorResp> criteriaQuery = criteriaBuilder.createQuery(TeaSubGradeForDirectorResp.class);
@@ -152,7 +152,7 @@ public class DirectorDaoImpl implements DirectorDao {
                 criteriaBuilder.max(relation2.get("subScore").as(Double.class)),
                 criteriaBuilder.min(relation2.get("subScore").as(Double.class))
         );
-        Predicate condition = criteriaBuilder.equal(scoreRoot.get("teaId"),entity.getTeacherId());
+        Predicate condition = criteriaBuilder.equal(scoreRoot.get("teaId"),query.getTeacherId());
         List scoreRootList = new ArrayList();
         scoreRootList.add(scoreRoot.get("teaId"));
         scoreRootList.add(relation1.get("subId"));
