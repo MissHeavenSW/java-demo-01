@@ -25,7 +25,7 @@ public class StudentDaoImpl implements StudentDao {
 
     /**
      * 学生可以查询本人每学年各学科成绩
-     * @param entity
+     * @param query
      * @return
      */
     public List<TermSubGradeForStuResp> findTermSubGradeForStu(TermSubGradeForStuQuery query){
@@ -61,7 +61,7 @@ public class StudentDaoImpl implements StudentDao {
 
     /**
      * 学生可以查询本人每学年各学科成绩数量
-     * @param entity
+     * @param query
      * @return
      */
     @Override
